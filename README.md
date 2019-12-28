@@ -1,1 +1,1 @@
-# Introduction-to-Interferometry
+# Introduction to Interferometry
