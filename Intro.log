@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.31)  28 DEC 2019 21:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.31)  28 DEC 2019 21:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -256,10 +256,10 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 27.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 Package epstopdf Info: Source file: <Figs/tms-figure.eps>
-(epstopdf)                    date: 2019-06-08 13:01:02
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 12034425 bytes
 (epstopdf)             Output file: <Figs/tms-figure-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-22 08:31:31
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 523674 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figs/tms-figure-eps-conver
 ted-to.pdf Figs/tms-figure.eps>
@@ -314,10 +314,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
 [4]
 Package epstopdf Info: Source file: <Figs/01-corr-resp.eps>
-(epstopdf)                    date: 2019-06-24 09:10:14
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 56141 bytes
 (epstopdf)             Output file: <Figs/01-corr-resp-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-25 13:44:43
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 23031 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figs/01-corr-resp-eps-conv
 erted-to.pdf Figs/01-corr-resp.eps>
@@ -365,10 +365,10 @@ LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 337.
 
 Package epstopdf Info: Source file: <Figs/03-dirac-vis.eps>
-(epstopdf)                    date: 2019-05-17 17:00:09
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 95901 bytes
 (epstopdf)             Output file: <Figs/03-dirac-vis-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-22 08:31:31
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 31178 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figs/03-dirac-vis-eps-conv
 erted-to.pdf Figs/03-dirac-vis.eps>
@@ -390,10 +390,10 @@ ine 339.
 LaTeX Warning: Float too large for page by 0.65077pt on input line 342.
 
 Package epstopdf Info: Source file: <Figs/04-gauss-vis.eps>
-(epstopdf)                    date: 2019-05-18 15:29:52
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 116479 bytes
 (epstopdf)             Output file: <Figs/04-gauss-vis-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-22 08:31:31
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 39963 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figs/04-gauss-vis-eps-conv
 erted-to.pdf Figs/04-gauss-vis.eps>
@@ -423,11 +423,11 @@ Overfull \hbox (11.50699pt too wide) in alignment at lines 373--383
 
 [13]
 Package epstopdf Info: Source file: <Figs/05-fin-band-lecture.eps>
-(epstopdf)                    date: 2019-06-20 11:38:48
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 55826 bytes
 (epstopdf)             Output file: <Figs/05-fin-band-lecture-eps-converted-to.
 pdf>
-(epstopdf)                    date: 2019-06-22 08:31:32
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 25053 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figs/05-fin-band-lecture-e
 ps-converted-to.pdf Figs/05-fin-band-lecture.eps>
@@ -445,10 +445,10 @@ Package pdftex.def Info: Figs/05-fin-band-lecture-eps-converted-to.pdf used on
 input line 389.
 (pdftex.def)             Requested size: 442.65375pt x 354.12389pt.
 Package epstopdf Info: Source file: <Figs/uv-lm-coords.eps>
-(epstopdf)                    date: 2019-06-20 11:09:55
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 42859876 bytes
 (epstopdf)             Output file: <Figs/uv-lm-coords-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-06-22 08:31:53
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 259179 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figs/uv-lm-coords-eps-conv
 erted-to.pdf Figs/uv-lm-coords.eps>
@@ -474,11 +474,11 @@ Underfull \hbox (badness 1112) in paragraph at lines 419--419
 [14] [15 <./Figs/05-fin-band-lecture-eps-converted-to.pdf>] [16] [17 <./Figs/uv
 -lm-coords-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <Figs/06-array2uv-triangle.eps>
-(epstopdf)                    date: 2019-06-25 13:43:48
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 1057904 bytes
 (epstopdf)             Output file: <Figs/06-array2uv-triangle-eps-converted-to
 .pdf>
-(epstopdf)                    date: 2019-06-25 13:44:44
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 246699 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figs/06-array2uv-triangle-
 eps-converted-to.pdf Figs/06-array2uv-triangle.eps>
@@ -497,11 +497,11 @@ Package pdftex.def Info: Figs/06-array2uv-triangle-eps-converted-to.pdf used on
  input line 486.
 (pdftex.def)             Requested size: 442.65375pt x 246.65009pt.
 Package epstopdf Info: Source file: <Figs/06-array2uv-meerkat.eps>
-(epstopdf)                    date: 2019-05-26 13:19:02
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 2717682 bytes
 (epstopdf)             Output file: <Figs/06-array2uv-meerkat-eps-converted-to.
 pdf>
-(epstopdf)                    date: 2019-06-22 08:31:56
+(epstopdf)                    date: 2019-12-28 21:32:02
 (epstopdf)                    size: 571091 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figs/06-array2uv-meerkat-e
 ps-converted-to.pdf Figs/06-array2uv-meerkat.eps>
