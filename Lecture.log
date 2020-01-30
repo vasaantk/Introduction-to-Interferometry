@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.27)  30 JAN 2020 20:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.27)  30 JAN 2020 21:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -530,16 +530,16 @@ ABD: EveryShipout initializing macros
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./Lecture.aux (./tex/01-F
 igure.aux)) ) 
 Here is how much of TeX's memory you used:
- 13572 strings out of 492982
- 266565 string characters out of 6134895
+ 13581 strings out of 492982
+ 266745 string characters out of 6134895
  295923 words of memory out of 5000000
- 16893 multiletter control sequences out of 15000+600000
+ 16902 multiletter control sequences out of 15000+600000
  3940 words of font info for 15 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,5n,54p,416b,597s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
 0.pfb>
-Output written on Lecture.pdf (1 page, 8718 bytes).
+Output written on Lecture.pdf (1 page, 8727 bytes).
 PDF statistics:
  15 PDF objects out of 1000 (max. 8388607)
  10 compressed objects within 1 object stream
