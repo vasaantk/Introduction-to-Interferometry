@@ -15,6 +15,8 @@
     "baseOffx"
     "sinTheta"
     "cosTheta"
-    "parrOff"))
+    "parrOff"
+    "triThick"
+    "linThick"))
  :latex)
 
