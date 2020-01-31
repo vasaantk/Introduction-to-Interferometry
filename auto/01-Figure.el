@@ -10,6 +10,11 @@
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
    (TeX-add-symbols
     "antOffx"
-    "antOffy"))
+    "antOffy"
+    "origin"
+    "baseOffx"
+    "sinTheta"
+    "cosTheta"
+    "parrOff"))
  :latex)
 
