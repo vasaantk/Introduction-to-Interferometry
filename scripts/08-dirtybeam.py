@@ -94,13 +94,14 @@ ax1.set_xlabel('x')
 ax1.set_ylabel('y')
 ax1.axis('equal')
 
-hourAngles = np.linspace(np.radians(abs(float(hourRange[0]))), np.radians(abs(float(hourRange[1]))), steps)
+hourAngles = np.linspace(np.radians(abs(float(hourRange[0]))), \
+                         np.radians(abs(float(hourRange[1]))), steps)
 srcDecRad  = np.radians(float(srcDec))
 
 # Create arrays to for all baseline & hourAngle permutations
 numTerms = len(baseArray)*len(hourAngles)
-uvarray = np.ones((numTerms, 2))
-vuarray = np.ones((numTerms, 2))
+uvarray = np.zeros((numTerms, 2))
+vuarray = np.zeros((numTerms, 2))
 
 for ind, antPair in enumerate(baseArray):
 
@@ -185,7 +186,7 @@ ax4 = fig.add_subplot(224)
 ax4.set_title('$S(u , v)$')
 ax4.axes.get_xaxis().set_ticks([])
 ax4.axes.get_yaxis().set_ticks([])
-# ax4.imshow(f, cmap= 'binary')
+ax4.imshow(f, cmap= 'binary')
 
 # The dirty beam, F
 ax3 = fig.add_subplot(223, projection= '3d')
