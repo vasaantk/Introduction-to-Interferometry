@@ -21,22 +21,24 @@ from mpl_toolkits.mplot3d import Axes3D
 #=====================================================================
 #     User variables
 #
-hourRange = [10, 30]       # Hour angle range of observation (degrees)
-srcDec    = 90             # Source declination              (degrees)
-steps     = 100            # Resolution for loci
-antArray  = {'A' : [ 0.00,  0.10],  # Array coordinates
-             'B' : [ 0.00,  0.22],
+hourRange = [10, 90]       # Hour angle range of observation (degrees)
+srcDec    = 13             # Source declination              (degrees)
+steps     = 500            # Resolution for loci
+antArray  = {'A' : [ 0.05,  0.10],  # Array coordinates
+             'B' : [-0.07,  0.22],
              'C' : [ 0.00,  0.42],
-             'D' : [ 0.00,  0.62],
-             'E' : [ 0.00,  0.82],
+             'D' : [ 0.02,  0.62],
+             'E' : [-0.10,  0.82],
              'F' : [-0.20, -0.20],
-             'G' : [-0.40, -0.40],
-             'H' : [-0.60, -0.60],
+             'G' : [-0.40, -0.25],
+             'H' : [-0.60, -0.66],
              'I' : [-0.80, -0.80],
              'J' : [ 0.25, -0.21],
-             'K' : [ 0.50, -0.41],
-             'L' : [ 0.75, -0.61],
-             'M' : [ 1.00, -0.81]}
+             'K' : [ 0.50, -0.05],
+             'L' : [ 0.50, -0.41],
+             'M' : [ 0.75, -0.75],
+             'O' : [ 2.75, -1.75],
+             'N' : [ 1.00, -0.81]}
 #=====================================================================
 
 
@@ -185,7 +187,6 @@ F = fft2(f)    # Need to confirm if it is actually fft2 or ifft2
 # surf = ax4.plot_surface(x, y, np.abs(f), cmap= 'binary')
 ax4 = fig.add_subplot(224)
 ax4.set_title('$S(u , v)$')
-ax4.axes.get_xaxis().set_ticks([])
 ax4.axes.get_yaxis().set_ticks([])
 ax4.imshow(f, cmap= 'binary')
 
