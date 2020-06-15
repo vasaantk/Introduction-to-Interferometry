@@ -98,12 +98,12 @@ hourAngles = np.linspace(np.radians(abs(float(hourRange[0]))), \
                          np.radians(abs(float(hourRange[1]))), steps)
 srcDecRad  = np.radians(float(srcDec))
 
-# Create arrays to for all baseline & hourAngle permutations
+# Create arrays for all baseline & hourAngle permutations
 numTerms = len(baseArray)*len(hourAngles)
 uvarray = np.zeros((numTerms, 2))
 vuarray = np.zeros((numTerms, 2))
 
-for ind, antPair in enumerate(baseArray):
+for index, antPair in enumerate(baseArray):
 
     # Determine coordinates in uv-plane
     OA = [ a-b for a, b in zip(antArray[antPair[0]], arrayCentre)]    # First  antenna w.r.t centre (e.g. vec{OA})
@@ -118,8 +118,8 @@ for ind, antPair in enumerate(baseArray):
 
     # uv coordinate transformation
     for hangle in np.arange(steps):
-        uvarray[hangle*ind] = uvDataToTMS(uv, hourAngles[hangle], srcDecRad)
-        vuarray[hangle*ind] = uvDataToTMS(vu, hourAngles[hangle], srcDecRad)
+        uvarray[hangle*index] = uvDataToTMS(uv, hourAngles[hangle], srcDecRad)
+        vuarray[hangle*index] = uvDataToTMS(vu, hourAngles[hangle], srcDecRad)
 
 # Plot the sampling pattern
 ax2 = fig.add_subplot(222)
@@ -139,7 +139,8 @@ ax2.axis('equal')
 
 
 #=====================================================================
-#     https://stackoverflow.com/questions/50314243/fourier-transform-in-python-2d
+#     Based on "fourier-transform-in-python-2d"
+#     https://stackoverflow.com/questions/50314243/
 #
 numCells = steps    # Balance the gridsize by adopting the user's resolution
 pltFieldSize = int(2*maxax*numCells)    # Allow plot to range from [-maxax, maxax]
@@ -190,12 +191,12 @@ ax4.imshow(f, cmap= 'binary')
 
 # The dirty beam, F
 ax3 = fig.add_subplot(223, projection= '3d')
-# https://stackoverflow.com/questions/11448972/changing-the-background-color-of-the-axes-planes-of-a-matplotlib-3d-plot
+# https://stackoverflow.com/questions/11448972/
 ax3.xaxis.pane.fill = False
 ax3.yaxis.pane.fill = False
 ax3.zaxis.pane.fill = False
 
-# https://stackoverflow.com/questions/59857203/remove-border-from-matplotlib-3d-pane
+# https://stackoverflow.com/questions/59857203/
 ax3.w_xaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
 ax3.w_yaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
 
