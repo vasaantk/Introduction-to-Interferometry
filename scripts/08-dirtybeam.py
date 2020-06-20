@@ -21,9 +21,9 @@ from mpl_toolkits.mplot3d import Axes3D
 #=====================================================================
 #     User variables
 #
-hourRange = [10, 360]       # Hour angle range of observation (degrees)
+hourRange = [10, 60]        # Hour angle range of observation (degrees)
 srcDec    = 85              # Source declination              (degrees)
-steps     = 50              # Resolution for loci
+steps     = 100             # Resolution for loci
 antArray  = {'A' : [ 0.05,  0.10],  # Array coordinates
              'B' : [-0.07,  0.22],
              'C' : [ 0.00,  0.42],
@@ -98,7 +98,6 @@ ax1.axis('equal')
 
 hourAngles = np.linspace(np.radians(abs(float(hourRange[0]))), \
                          np.radians(abs(float(hourRange[1]))), steps)
-
 srcDecRad  = np.radians(float(srcDec))
 
 # Create arrays for all baseline & hourAngle permutations
@@ -147,19 +146,6 @@ ax2.axis('equal')
 #
 numCells = steps    # Balance the gridsize by adopting the user's resolution
 pltFieldSize = int(2*maxax*numCells)    # Allow plot to range from [-maxax, maxax]
-cellSize = 1/float(steps)
-
-Nx, Ny = pltFieldSize, pltFieldSize
-range_x, range_y = np.arange(Nx), np.arange(Ny)
-dx, dy = cellSize, cellSize
-xUV, yUV = dx * (range_x - 0.5*Nx), dy * (range_y - 0.5*Ny)
-
-dBeam_x, dBeam_y = np.pi/np.max(xUV), np.pi/np.max(yUV)
-Beam_xUV, Beam_yUV = dBeam_x * np.append(range_x[:Nx//2], -range_x[Nx//2:0:-1]), \
-                     dBeam_y * np.append(range_y[:Ny//2], -range_y[Ny//2:0:-1])
-
-x, y = np.meshgrid(xUV, yUV, sparse=False, indexing='ij')
-kx, ky = np.meshgrid(Beam_xUV, Beam_yUV, sparse=False, indexing='ij')
 
 # Model the sampling pattern as a surface and toggle each uv point:
 f = np.zeros((pltFieldSize, pltFieldSize))
@@ -202,9 +188,26 @@ plt.show()
 
 # #=====================================================================
 # #     Plotting in 3D
+# #     Based on "fourier-transform-in-python-2d"
+# #     https://stackoverflow.com/questions/50314243/
 # #
+# cellSize = 1/float(steps)
+
+# Nx, Ny = pltFieldSize, pltFieldSize
+# range_x, range_y = np.arange(Nx), np.arange(Ny)
+# dx, dy = cellSize, cellSize
+# xUV, yUV = dx * (range_x - 0.5*Nx), dy * (range_y - 0.5*Ny)
+
+# dBeam_x, dBeam_y = np.pi/np.max(xUV), np.pi/np.max(yUV)
+# Beam_xUV, Beam_yUV = dBeam_x * np.append(range_x[:Nx//2], -range_x[Nx//2:0:-1]), \
+#                      dBeam_y * np.append(range_y[:Ny//2], -range_y[Ny//2:0:-1])
+
+# x, y = np.meshgrid(xUV, yUV, sparse=False, indexing='ij')
+# kx, ky = np.meshgrid(Beam_xUV, Beam_yUV, sparse=False, indexing='ij')
+
 # # The sampling pattern, f = S(u, v)
 # ax4 = fig.add_subplot(224, projection= '3d')
+# ax4.set_title('$S(u , v)$')
 # surf = ax4.plot_surface(x, y, np.abs(f), cmap= 'binary')
 
 # # The dirty beam, F = B(l, m)
@@ -224,7 +227,7 @@ plt.show()
 # ax3.axes.get_yaxis().set_ticks([])
 # ax3.axes.get_zaxis().set_ticks([])
 
-# surf = ax3.plot_surface(kx, ky, np.abs(F), cmap= 'binary')
+# surf = ax3.plot_surface(kx, ky, np.abs(F)*dx*dy, cmap= 'binary')
 
 # plt.show()
 # #=====================================================================
