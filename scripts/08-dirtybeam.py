@@ -3,7 +3,7 @@
 import matplotlib.pyplot as plt
 from itertools import combinations
 import numpy as np
-from scipy.fftpack import fft2, ifft2
+from scipy.fftpack import fft2, ifft2, fftshift
 from mpl_toolkits.mplot3d import Axes3D
 
 
@@ -21,9 +21,9 @@ from mpl_toolkits.mplot3d import Axes3D
 #=====================================================================
 #     User variables
 #
-hourRange = [10, 90]       # Hour angle range of observation (degrees)
-srcDec    = 13             # Source declination              (degrees)
-steps     = 500            # Resolution for loci
+hourRange = [10, 360]       # Hour angle range of observation (degrees)
+srcDec    = 85              # Source declination              (degrees)
+steps     = 50              # Resolution for loci
 antArray  = {'A' : [ 0.05,  0.10],  # Array coordinates
              'B' : [-0.07,  0.22],
              'C' : [ 0.00,  0.42],
@@ -98,6 +98,7 @@ ax1.axis('equal')
 
 hourAngles = np.linspace(np.radians(abs(float(hourRange[0]))), \
                          np.radians(abs(float(hourRange[1]))), steps)
+
 srcDecRad  = np.radians(float(srcDec))
 
 # Create arrays for all baseline & hourAngle permutations
@@ -172,7 +173,7 @@ for i, j in zip(uvarray, vuarray):
     if xUVal < pltFieldSize and yUVal < pltFieldSize:
         f[xUVal,yUVal] = 1
 
-F = fft2(f)    # Need to confirm if it is actually fft2 or ifft2
+F = ifft2(f)    # Take the Inverse Fourier Transform to get B(l, m)
 #=====================================================================
 
 
@@ -180,34 +181,50 @@ F = fft2(f)    # Need to confirm if it is actually fft2 or ifft2
 
 
 #=====================================================================
-#     Plotting
+#     Plotting in 2D
 #
-# The sampling pattern, f
-# ax4 = fig.add_subplot(224, projection= '3d')
-# surf = ax4.plot_surface(x, y, np.abs(f), cmap= 'binary')
+# The sampling pattern, f = S(u, v)
 ax4 = fig.add_subplot(224)
 ax4.set_title('$S(u , v)$')
-ax4.axes.get_yaxis().set_ticks([])
 ax4.imshow(f, cmap= 'binary')
 
-# The dirty beam, F
-ax3 = fig.add_subplot(223, projection= '3d')
-# https://stackoverflow.com/questions/11448972/
-ax3.xaxis.pane.fill = False
-ax3.yaxis.pane.fill = False
-ax3.zaxis.pane.fill = False
-
-# https://stackoverflow.com/questions/59857203/
-ax3.w_xaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
-ax3.w_yaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
-
-ax3.grid(False)
+# The dirty beam, F = B(l, m)
+ax3 = fig.add_subplot(223)
 ax3.set_title('$B(\\ell , m)$')
-ax3.axes.get_xaxis().set_ticks([])
-ax3.axes.get_yaxis().set_ticks([])
-ax3.axes.get_zaxis().set_ticks([])
-
-surf = ax3.plot_surface(kx, ky, np.abs(F)*dx*dy, cmap= 'binary')
+ax3.imshow(np.abs(fftshift(F)), cmap= 'binary')    # Note the fftshift
 
 plt.show()
 #=====================================================================
+
+
+
+
+
+# #=====================================================================
+# #     Plotting in 3D
+# #
+# # The sampling pattern, f = S(u, v)
+# ax4 = fig.add_subplot(224, projection= '3d')
+# surf = ax4.plot_surface(x, y, np.abs(f), cmap= 'binary')
+
+# # The dirty beam, F = B(l, m)
+# ax3 = fig.add_subplot(223, projection= '3d')
+# # https://stackoverflow.com/questions/11448972/
+# ax3.xaxis.pane.fill = False
+# ax3.yaxis.pane.fill = False
+# ax3.zaxis.pane.fill = False
+
+# # https://stackoverflow.com/questions/59857203/
+# ax3.w_xaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
+# ax3.w_yaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
+
+# ax3.grid(False)
+# ax3.set_title('$B(\\ell , m)$')
+# ax3.axes.get_xaxis().set_ticks([])
+# ax3.axes.get_yaxis().set_ticks([])
+# ax3.axes.get_zaxis().set_ticks([])
+
+# surf = ax3.plot_surface(kx, ky, np.abs(F), cmap= 'binary')
+
+# plt.show()
+# #=====================================================================
