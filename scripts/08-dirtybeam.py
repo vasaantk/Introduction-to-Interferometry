@@ -156,13 +156,17 @@ sky = np.zeros((pltFieldSize, pltFieldSize))
 # sky[ 0, -1] = TRC
 # sky[-1,  0] = BLC
 # sky[-1, -1] = BRC
+
+# Use y=mx+c to transfrom [-maxax, maxax] --> [0, numCells]
+uvToGrid = lambda x: int((x*numCells)+(numCells*maxax))
 for i, j in zip(uvarray, vuarray):
-    xUVpt = int((i[0]*numCells)+(numCells*maxax))    # Use y=mx+c to transfrom [-maxax, maxax] --> [0, numCells]
-    yUVpt = int((i[1]*numCells)+(numCells*maxax))
+    xUVpt = uvToGrid(i[0])
+    yUVpt = uvToGrid(i[1])
     if xUVpt < pltFieldSize and yUVpt < pltFieldSize:
         sky[yUVpt, xUVpt] = 1
-    xVUpt = int((j[0]*numCells)+(numCells*maxax))
-    yVUpt = int((j[1]*numCells)+(numCells*maxax))
+
+    xVUpt = uvToGrid(j[0])
+    yVUpt = uvToGrid(j[1])
     if xVUpt < pltFieldSize and yVUpt < pltFieldSize:
         sky[yVUpt, xVUpt] = 1
 
