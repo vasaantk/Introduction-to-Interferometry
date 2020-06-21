@@ -149,15 +149,19 @@ pltFieldSize = int(2*maxax*numCells)    # Allow plot to range from [-maxax, maxa
 
 # Model the sampling pattern as a surface and toggle each uv point:
 f = np.zeros((pltFieldSize, pltFieldSize))
+# f[ 0,  0] = TLC
+# f[ 0, -1] = TRC
+# f[-1,  0] = BLC
+# f[-1, -1] = BRC
 for i, j in zip(uvarray, vuarray):
     xUVpt = int((i[0]*numCells)+(numCells*maxax))    # Use y=mx+c to transfrom [-maxax, maxax] --> [0, numCells]
     yUVpt = int((i[1]*numCells)+(numCells*maxax))
     if xUVpt < pltFieldSize and yUVpt < pltFieldSize:
-        f[xUVpt, yUVpt] = 1
+        f[yUVpt, xUVpt] = 1
     xVUpt = int((j[0]*numCells)+(numCells*maxax))
     yVUpt = int((j[1]*numCells)+(numCells*maxax))
     if xVUpt < pltFieldSize and yVUpt < pltFieldSize:
-        f[xVUpt, yVUpt] = 1
+        f[yVUpt, xVUpt] = 1
 
 F = ifft2(f)    # Take the Inverse Fourier Transform to get B(l, m)
 #=====================================================================
