@@ -87,11 +87,13 @@ arrayCentre = [xAntCoords/numAnts, yAntCoords/numAnts]
 #
 fig = plt.figure()
 plt.suptitle('(x, y) to $S(u , v) \\rightarrow B(\\ell , m)$')
+plt.suptitle('Array Layout to Sampling Pattern and Dirty Beam\n $S(u , v) \\rightarrow B(\\ell , m)$')
 
 # Plot the array configuration
 ax1 = fig.add_subplot(221)
 for i in antArray:
     ax1.scatter(antArray[i][0], antArray[i][1], c= 'k')
+ax1.set_title('Array layout')
 ax1.set_xlabel('x')
 ax1.set_ylabel('y')
 ax1.axis('equal')
@@ -129,6 +131,7 @@ ax2 = fig.add_subplot(222)
 ax2.scatter(uvarray[:, 0], uvarray[:, 1], c= 'k', s= 0.3)
 ax2.scatter(vuarray[:, 0], vuarray[:, 1], c= 'k', s= 0.3)
 
+ax2.set_title('$S(u, v)$')
 ax2.set_xlabel('u')
 ax2.set_ylabel('v')
 ax2.set_ylim(-maxax, maxax)
@@ -141,28 +144,29 @@ ax2.axis('equal')
 
 
 #=====================================================================
-#     Based on "fourier-transform-in-python-2d"
-#     https://stackoverflow.com/questions/50314243/
+#     Grid the uv and vu sampling points
 #
 numCells = np.sqrt(steps)    # Balance the gridsize by adopting the user's resolution
 pltFieldSize = int(2*maxax*numCells)    # Allow plot to range from [-maxax, maxax]
 
-# Model the sampling pattern as a surface and toggle each uv point:
-f = np.zeros((pltFieldSize, pltFieldSize))
-# f[ 0,  0] = TLC
-# f[ 0, -1] = TRC
-# f[-1,  0] = BLC
-# f[-1, -1] = BRC
+# Model the sampling pattern as a surface...
+sky = np.zeros((pltFieldSize, pltFieldSize))
+#... and toggle each uv point
+# sky[ 0,  0] = TLC
+# sky[ 0, -1] = TRC
+# sky[-1,  0] = BLC
+# sky[-1, -1] = BRC
 for i, j in zip(uvarray, vuarray):
     xUVpt = int((i[0]*numCells)+(numCells*maxax))    # Use y=mx+c to transfrom [-maxax, maxax] --> [0, numCells]
     yUVpt = int((i[1]*numCells)+(numCells*maxax))
     if xUVpt < pltFieldSize and yUVpt < pltFieldSize:
-        f[yUVpt, xUVpt] = 1
+        sky[yUVpt, xUVpt] = 1
     xVUpt = int((j[0]*numCells)+(numCells*maxax))
     yVUpt = int((j[1]*numCells)+(numCells*maxax))
     if xVUpt < pltFieldSize and yVUpt < pltFieldSize:
-        f[yVUpt, xVUpt] = 1
+        sky[yVUpt, xVUpt] = 1
 
+f = np.flip(sky, 0)    # y=mx+c does not totally work, so I must flip the axis, f = S(u, v)
 F = ifft2(f)    # Take the Inverse Fourier Transform to get B(l, m)
 #=====================================================================
 
@@ -175,7 +179,7 @@ F = ifft2(f)    # Take the Inverse Fourier Transform to get B(l, m)
 #
 # The sampling pattern, f = S(u, v)
 ax4 = fig.add_subplot(224)
-ax4.set_title('$S(u, v)$')
+ax4.set_title('$S(u, v)$ gridded')
 ax4.imshow(f, cmap= 'binary')
 
 # The dirty beam, F = B(l, m)
@@ -211,7 +215,7 @@ plt.show()
 
 # # The sampling pattern, f = S(u, v)
 # ax4 = fig.add_subplot(224, projection= '3d')
-# ax4.set_title('$S(u, v)$')
+# ax4.set_title('$S(u, v)$ gridded')
 # surf = ax4.plot_surface(x, y, np.abs(f), cmap= 'binary')
 
 # # The dirty beam, F = B(l, m)
