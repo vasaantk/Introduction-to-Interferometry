@@ -21,9 +21,9 @@ from mpl_toolkits.mplot3d import Axes3D
 #=====================================================================
 #     User variables
 #
-hourRange = [10, 60]        # Hour angle range of observation (degrees)
-srcDec    = 85              # Source declination              (degrees)
-steps     = 100             # Resolution for loci
+hourRange = [10, 30]        # Hour angle range of observation (degrees)
+srcDec    = 30              # Source declination              (degrees)
+steps     = 500             # Resolution for loci
 antArray  = {'A' : [ 0.05,  0.10],  # Array coordinates
              'B' : [-0.07,  0.22],
              'C' : [ 0.00,  0.42],
@@ -144,7 +144,7 @@ ax2.axis('equal')
 #     Based on "fourier-transform-in-python-2d"
 #     https://stackoverflow.com/questions/50314243/
 #
-numCells = steps    # Balance the gridsize by adopting the user's resolution
+numCells = np.sqrt(steps)    # Balance the gridsize by adopting the user's resolution
 pltFieldSize = int(2*maxax*numCells)    # Allow plot to range from [-maxax, maxax]
 
 # Model the sampling pattern as a surface and toggle each uv point:
