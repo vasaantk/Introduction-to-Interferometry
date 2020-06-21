@@ -151,7 +151,6 @@ pltFieldSize = int(2*maxax*numCells)    # Allow plot to range from [-maxax, maxa
 
 # Model the sampling pattern as a surface...
 sky = np.zeros((pltFieldSize, pltFieldSize))
-#... and toggle each uv point
 # sky[ 0,  0] = TLC
 # sky[ 0, -1] = TRC
 # sky[-1,  0] = BLC
@@ -159,12 +158,13 @@ sky = np.zeros((pltFieldSize, pltFieldSize))
 
 # Use y=mx+c to transfrom [-maxax, maxax] --> [0, numCells]
 uvToGrid = lambda x: int((x*numCells)+(numCells*maxax))
+
+#... and toggle each uv point
 for i, j in zip(uvarray, vuarray):
     xUVpt = uvToGrid(i[0])
     yUVpt = uvToGrid(i[1])
     if xUVpt < pltFieldSize and yUVpt < pltFieldSize:
         sky[yUVpt, xUVpt] = 1
-
     xVUpt = uvToGrid(j[0])
     yVUpt = uvToGrid(j[1])
     if xVUpt < pltFieldSize and yVUpt < pltFieldSize:
