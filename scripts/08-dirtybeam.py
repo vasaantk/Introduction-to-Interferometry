@@ -123,7 +123,7 @@ for index, antPair in enumerate(baseArray):
         uvarray[hangle*index] = uvDataToTMS(uv, hourAngles[hangle], srcDecRad)
         vuarray[hangle*index] = uvDataToTMS(vu, hourAngles[hangle], srcDecRad)
 
-# Plot the sampling pattern
+# Plot the sampling pattern, S(u, v)
 ax2 = fig.add_subplot(222)
 
 ax2.scatter(uvarray[:, 0], uvarray[:, 1], c= 'k', s= 0.3)
@@ -150,14 +150,14 @@ pltFieldSize = int(2*maxax*numCells)    # Allow plot to range from [-maxax, maxa
 # Model the sampling pattern as a surface and toggle each uv point:
 f = np.zeros((pltFieldSize, pltFieldSize))
 for i, j in zip(uvarray, vuarray):
-    xUVal = int((i[0]*numCells)+(numCells*maxax))    # Use y=mx+c to transfrom [-maxax, maxax] --> [0, numCells]
-    yUVal = int((i[1]*numCells)+(numCells*maxax))
-    if xUVal < pltFieldSize and yUVal < pltFieldSize:
-        f[xUVal,yUVal] = 1
-    xUVal = int((j[0]*numCells)+(numCells*maxax))
-    yUVal = int((j[1]*numCells)+(numCells*maxax))
-    if xUVal < pltFieldSize and yUVal < pltFieldSize:
-        f[xUVal,yUVal] = 1
+    xUVpt = int((i[0]*numCells)+(numCells*maxax))    # Use y=mx+c to transfrom [-maxax, maxax] --> [0, numCells]
+    yUVpt = int((i[1]*numCells)+(numCells*maxax))
+    if xUVpt < pltFieldSize and yUVpt < pltFieldSize:
+        f[xUVpt, yUVpt] = 1
+    xVUpt = int((j[0]*numCells)+(numCells*maxax))
+    yVUpt = int((j[1]*numCells)+(numCells*maxax))
+    if xVUpt < pltFieldSize and yVUpt < pltFieldSize:
+        f[xVUpt, yVUpt] = 1
 
 F = ifft2(f)    # Take the Inverse Fourier Transform to get B(l, m)
 #=====================================================================
@@ -171,7 +171,7 @@ F = ifft2(f)    # Take the Inverse Fourier Transform to get B(l, m)
 #
 # The sampling pattern, f = S(u, v)
 ax4 = fig.add_subplot(224)
-ax4.set_title('$S(u , v)$')
+ax4.set_title('$S(u, v)$')
 ax4.imshow(f, cmap= 'binary')
 
 # The dirty beam, F = B(l, m)
@@ -207,7 +207,7 @@ plt.show()
 
 # # The sampling pattern, f = S(u, v)
 # ax4 = fig.add_subplot(224, projection= '3d')
-# ax4.set_title('$S(u , v)$')
+# ax4.set_title('$S(u, v)$')
 # surf = ax4.plot_surface(x, y, np.abs(f), cmap= 'binary')
 
 # # The dirty beam, F = B(l, m)
