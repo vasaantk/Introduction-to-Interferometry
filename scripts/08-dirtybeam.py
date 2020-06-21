@@ -22,7 +22,7 @@ from mpl_toolkits.mplot3d import Axes3D
 #     User variables
 #
 hourRange = [10, 30]        # Hour angle range of observation (degrees)
-srcDec    = 30              # Source declination              (degrees)
+srcDec    = 85              # Source declination              (degrees)
 steps     = 500             # Resolution for loci
 antArray  = {'A' : [ 0.05,  0.10],  # Array coordinates
              'B' : [-0.07,  0.22],
@@ -63,8 +63,6 @@ def uvDataToTMS(uvdatapoint, hourangle, declinationRadians):
 #=====================================================================
 #     Code begins here
 #
-maxax = 0     # Axis limits get determined later
-
 # Determine all unique baselines
 baseArray = [','.join(map(str, comb)).split(',') for comb in combinations(antArray.keys(), 2)]
 
@@ -115,15 +113,13 @@ for index, antPair in enumerate(baseArray):
     uv = [-x+y for x, y in zip(OA, OB)]    # vec{AB} = -OA + OB
     vu = [ x-y for x, y in zip(OA, OB)]    # vec{BA} =  OA - OB
 
-    # Set axis limits for plot
-    maxuv = max([abs(k) for k in uv])
-    if maxuv > maxax:
-        maxax = maxuv
-
     # uv coordinate transformation
     for hangle in np.arange(steps):
         uvarray[hangle*index] = uvDataToTMS(uv, hourAngles[hangle], srcDecRad)
         vuarray[hangle*index] = uvDataToTMS(vu, hourAngles[hangle], srcDecRad)
+
+# Get axis limits for plot
+maxax = np.ceil(np.amax([uvarray, vuarray]))
 
 # Plot the sampling pattern, S(u, v)
 ax2 = fig.add_subplot(222)
@@ -163,12 +159,11 @@ uvToGrid = lambda x: int((x*numCells)+(numCells*maxax))
 for i, j in zip(uvarray, vuarray):
     xUVpt = uvToGrid(i[0])
     yUVpt = uvToGrid(i[1])
-    if xUVpt < pltFieldSize and yUVpt < pltFieldSize:
-        sky[yUVpt, xUVpt] = 1
+    sky[yUVpt, xUVpt] = 1
+
     xVUpt = uvToGrid(j[0])
     yVUpt = uvToGrid(j[1])
-    if xVUpt < pltFieldSize and yVUpt < pltFieldSize:
-        sky[yVUpt, xVUpt] = 1
+    sky[yVUpt, xVUpt] = 1
 
 f = np.flip(sky, 0)    # uvToGrid does not totally work, so I must flip the axis, f = S(u, v)
 F = ifft2(f)    # Take the Inverse Fourier Transform to get B(l, m)
