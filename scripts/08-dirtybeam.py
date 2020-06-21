@@ -170,7 +170,7 @@ for i, j in zip(uvarray, vuarray):
     if xVUpt < pltFieldSize and yVUpt < pltFieldSize:
         sky[yVUpt, xVUpt] = 1
 
-f = np.flip(sky, 0)    # y=mx+c does not totally work, so I must flip the axis, f = S(u, v)
+f = np.flip(sky, 0)    # uvToGrid does not totally work, so I must flip the axis, f = S(u, v)
 F = ifft2(f)    # Take the Inverse Fourier Transform to get B(l, m)
 #=====================================================================
 
