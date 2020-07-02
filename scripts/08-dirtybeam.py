@@ -103,7 +103,6 @@ srcDecRad  = np.radians(float(srcDec))
 # Create arrays for all baseline & hourAngle permutations
 numTerms = len(baseArray)*len(hourAngles)
 uvarray = np.zeros((numTerms, 2))
-vuarray = np.zeros((numTerms, 2))
 
 for index, antPair in enumerate(baseArray):
 
@@ -111,21 +110,18 @@ for index, antPair in enumerate(baseArray):
     OA = [ a-b for a, b in zip(antArray[antPair[0]], arrayCentre)]    # First  antenna w.r.t centre (e.g. vec{OA})
     OB = [ a-b for a, b in zip(antArray[antPair[1]], arrayCentre)]    # Second antenna w.r.t centre (e.g. vec{OB})
     uv = [-x+y for x, y in zip(OA, OB)]    # vec{AB} = -OA + OB
-    vu = [ x-y for x, y in zip(OA, OB)]    # vec{BA} =  OA - OB
 
     # uv coordinate transformation
     for hangle in np.arange(steps):
         uvarray[hangle*index] = uvDataToTMS(uv, hourAngles[hangle], srcDecRad)
-        vuarray[hangle*index] = uvDataToTMS(vu, hourAngles[hangle], srcDecRad)
 
 # Get axis limits for plot
-maxax = np.ceil(np.amax([uvarray, vuarray]))
+maxax = np.ceil(np.amax(np.abs(uvarray)))
 
 # Plot the sampling pattern, S(u, v)
 ax2 = fig.add_subplot(222)
-
 ax2.scatter(uvarray[:, 0], uvarray[:, 1], c= 'k', s= 0.3)
-ax2.scatter(vuarray[:, 0], vuarray[:, 1], c= 'k', s= 0.3)
+ax2.scatter(-uvarray[:, 0], -uvarray[:, 1], c= 'k', s= 0.3)
 
 ax2.set_title('$S(u, v)$')
 ax2.set_xlabel('u')
@@ -156,6 +152,7 @@ sky = np.zeros((pltFieldSize, pltFieldSize))
 uvToGrid = lambda x: int((x*numCells)+(numCells*maxax))
 
 #... and toggle each uv point
+vuarray = -uvarray
 for i, j in zip(uvarray, vuarray):
     xUVpt = uvToGrid(i[0])
     yUVpt = uvToGrid(i[1])
