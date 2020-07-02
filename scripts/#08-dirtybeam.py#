@@ -86,8 +86,7 @@ arrayCentre = [xAntCoords/numAnts, yAntCoords/numAnts]
 #
 fig = plt.figure()
 plt.suptitle('(x, y) to $S(u , v) \\rightarrow B(\\ell , m)$')
-plt.suptitle(
-    'Array Layout to Sampling Pattern and Dirty Beam\n $S(u , v) \\rightarrow B(\\ell , m)$')
+plt.suptitle(m'Array Layout to Sampling Pattern and Dirty Beam\n $S(u , v) \\rightarrow B(\\ell , m)$')
 
 # Plot the array configuration
 ax1 = fig.add_subplot(221)
@@ -98,7 +97,7 @@ ax1.set_xlabel('x')
 ax1.set_ylabel('y')
 ax1.axis('equal')
 
-hourAngles = np.linspace(np.radians(abs(float(hourRange[0]))),
+hourAngles = np.linspace(np.radians(abs(float(hourRange[0]))), \
                          np.radians(abs(float(hourRange[1]))), steps)
 srcDecRad  = np.radians(float(srcDec))
 
