@@ -2,6 +2,7 @@
 
 import matplotlib.pyplot as plt
 from itertools import combinations
+import numpy as np
 
 # 06-array2uv.py takes a dictionary, antArray, of antenna name and
 # corresponding (x,y) coordinates, computes the centre of the array
@@ -103,6 +104,9 @@ for i in antArray:
     xAntCoords += antArray[i][0]
     yAntCoords += antArray[i][1]
 arrayCentre = [xAntCoords/numAnts, yAntCoords/numAnts]
+
+numTerms = len(baseArray)
+uvarray = np.zeros((numTerms, 2))
 #=====================================================================
 
 
@@ -118,23 +122,31 @@ plt.suptitle('(x, y) to (u, v)', fontsize= textsize)
 ax1 = fig.add_subplot(121)
 for i in antArray:
     ax1.scatter(antArray[i][0], antArray[i][1], s= 20, c= 'k')
-    ax1.set_xlabel('x', fontsize= textsize)
-    ax1.set_ylabel('y', fontsize= textsize)
-    ax1.tick_params(axis='both', which='both', labelsize= textsize)
+ax1.set_xlabel('x', fontsize= textsize)
+ax1.set_ylabel('y', fontsize= textsize)
+ax1.tick_params(axis='both', which='both', labelsize= textsize)
+ax1.axis('equal')
 
 ax2 = fig.add_subplot(122)
-for i in baseArray:
+for index, antPair in enumerate(baseArray):
     # Determine coordinates in uv-plane
-    OA = [ a-b for a, b in zip(antArray[i[0]], arrayCentre)]    # First  antenna w.r.t centre (e.g. vec{OA})
-    OB = [ a-b for a, b in zip(antArray[i[1]], arrayCentre)]    # Second antenna w.r.t centre (e.g. vec{OB})
-    uv = [-x+y for x, y in zip(OA, OB)]                         # vec{AB} = -OA + OB
-    vu = [ x-y for x, y in zip(OA, OB)]                         # vec{BA} =  OA - OB
+    OA = [ a-b for a, b in zip(antArray[antPair[0]], arrayCentre)]    # First  antenna w.r.t centre (e.g. vec{OA})
+    OB = [ a-b for a, b in zip(antArray[antPair[1]], arrayCentre)]    # Second antenna w.r.t centre (e.g. vec{OB})
+    uv = [-x+y for x, y in zip(OA, OB)]    # vec{AB} = -OA + OB
 
-    ax2.scatter(uv[0], uv[1], s= 20, c= 'k')
-    ax2.scatter(vu[0], vu[1], s= 20, c= 'k')
-    ax2.set_xlabel('u', fontsize= textsize)
-    ax2.set_ylabel('v', fontsize= textsize)
-    ax2.tick_params(axis='both', which='both', labelsize= textsize)
+    # uv coordinate transformation
+    uvarray[index] = uv
+
+# Get axis limits for plot
+maxax = np.ceil(np.amax(np.abs(uvarray)))
+
+# Plot the sampling pattern, S(u, v)
+ax2.scatter(uvarray[:, 0], uvarray[:, 1], c= 'k', s= 3)
+ax2.scatter(-uvarray[:, 0], -uvarray[:, 1], c= 'k', s= 3)
+ax2.set_xlabel('u', fontsize= textsize)
+ax2.set_ylabel('v', fontsize= textsize)
+ax2.tick_params(axis='both', which='both', labelsize= textsize)
+ax2.axis('equal')
 
 # plt.savefig('06-array2uv-meerkat.eps', transparent=True, format='eps')
 plt.show()
