@@ -21,9 +21,6 @@ from mpl_toolkits.mplot3d import Axes3D
 #=====================================================================
 #     User variables
 #
-
-textsize = 13
-
 hourRange = [10, 30]        # Hour angle range of observation (degrees)
 srcDec    = 85              # Source declination              (degrees)
 steps     = 500             # Resolution for loci
